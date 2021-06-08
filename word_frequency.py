@@ -4,12 +4,20 @@ STOP_WORDS = [
     'will', 'with'
 ]
 
+# start by opening the file, read the file
+
 
 def print_word_freq(file):
     """Read in `file` and print out the frequency of words in that file."""
-    pass
+    with open(file) as the_hill_we_climb:
+        text = the_hill_we_climb.read().lower()
+        print(repr(text[0:-1]))   
+       
+
+        
 
 
+# Calling function, adding argument from function to the command line.
 if __name__ == "__main__":
     import argparse
     from pathlib import Path
