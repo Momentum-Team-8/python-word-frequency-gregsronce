@@ -1,4 +1,4 @@
-from os import remove, replace
+import string
 
 
 STOP_WORDS = [
@@ -6,6 +6,9 @@ STOP_WORDS = [
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
     'will', 'with'
 ]
+
+punctuation = """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+
 
 # start by opening the file, read the file, turn file to all lower-case.
 
@@ -22,17 +25,22 @@ STOP_WORDS = [
 # 3. If statement checks if the word is present in the array STOP_WORDS or not.
 # 4. If it is not present, the word will be appended to the new array words_to_count.
 
-# Make the words_to_count a smaller range to experiment and work with.
+# Next steps: 1. Create new dictionary.
+# 2. Loop over words in words_to_count and add them to a dictionary with an initial count of one. 
+# Then, increase their value by one every time the word occurs.
 
-# Use the count method to count the number of words in the list with specified value?
+# Sort the dictionary:  
+# Loop over sorted, which takes the iterable object (dict) and will sort it based on 
+# the order of the results when the key function is called. In this case, using the get method on the dict as the key's argument.
+# Then, reverse=True will order the results in descending order.
+# I also tried using the anonymous function lambda to sort the dictionary by its values (on line 61).
 
 
 def print_word_freq(file):
     """Read in `file` and print out the frequency of words in that file."""
-    with open(file) as the_hill_we_climb:
-        text = the_hill_we_climb.read().lower()
-        # print(repr(text[0:-1]))  
-        punctuation = """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+    with open(file) as file:
+        text = file.read().lower()
+        # print(repr(text[0:-1]))
         new_text_string = ""
         for word in text:
             if word not in punctuation:
@@ -44,11 +52,15 @@ def print_word_freq(file):
         for word in list_of_words:
             if word not in STOP_WORDS:
                 words_to_count.append(word)
-        # print(words_to_count)
-        smaller_chunk = words_to_count[0:14]
-        print(smaller_chunk)
-        # for word in smaller_chunk:
-        #     print(word, smaller_chunk.count(word))
+        dict = {}
+        for word in words_to_count:
+            if word in dict:
+                dict[word] += 1
+            else:
+                dict[word] = 1
+        print(sorted(dict.items(), key=lambda seq: seq[1], reverse=True))
+        # for word in sorted(dict, key=dict.get, reverse=True):
+        #     print(word, dict[word])
 
 
 # Calling function, adding argument from function to the command line.
